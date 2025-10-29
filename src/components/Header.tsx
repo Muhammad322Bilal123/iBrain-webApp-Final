@@ -1,17 +1,25 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import { X } from 'lucide-react';
+
+const MenuIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="3" y1="12" x2="18" y2="12" />
+    <line x1="3" y1="6" x2="18" y2="6" />
+  </svg>
+);
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -22,71 +30,96 @@ export default function Header() {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/80 backdrop-blur-xl shadow-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection('home')}>
-          <span className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'Orbitron, sans-serif' }}>iBrain</span>
-        </div>
+    <>
+      <header className="fixed top-4 inset-x-0 z-50">
+        <nav className="max-w-fit mx-auto">
+          <div className="bg-white/80 backdrop-blur-xl shadow-all-sides-shadow rounded-full transition-transform duration-300 hover:scale-105">
+            <div className="flex items-center justify-center px-5 py-3">
+              <span 
+                className="text-2xl font-bold text-gray-900 cursor-pointer"
+                style={{ fontFamily: 'Orbitron, sans-serif' }}
+                onClick={() => scrollToSection('home')}
+              >
+                iBrain
+              </span>
+              <div className="h-6 w-px bg-gray-300 mx-4"></div>
+              <button
+                className="text-gray-900 flex items-center justify-center"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon />}
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
 
-        <div className="hidden md:flex items-center space-x-8">
-          <button
-            onClick={() => scrollToSection('home')}
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => scrollToSection('courses')}
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
-          >
-            Courses
-          </button>
-          <button
-            onClick={() => scrollToSection('impact')}
-            className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
-          >
-            About
-          </button>
-        </div>
-
-        <button
-          className="md:hidden text-gray-900"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </nav>
-
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl shadow-lg">
-          <div className="px-6 py-4 space-y-4">
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-white transition-opacity duration-1000 ease-in-out ${
+          mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}
+      >
+        <div className="pt-40 px-16">
+          <div className="flex flex-col items-start space-y-6">
             <button
               onClick={() => scrollToSection('home')}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium py-2"
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '400ms' : '500ms' }}
             >
               Home
             </button>
             <button
               onClick={() => scrollToSection('courses')}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium py-2"
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '500ms' : '400ms' }}
             >
               Courses
             </button>
             <button
               onClick={() => scrollToSection('impact')}
-              className="block w-full text-left text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium py-2"
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '600ms' : '300ms' }}
             >
               About
             </button>
+            <button
+              onClick={() => scrollToSection('features')}
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '700ms' : '200ms' }}
+            >
+              Features
+            </button>
+            <button
+              onClick={() => scrollToSection('pricing')}
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '800ms' : '100ms' }}
+            >
+              Pricing
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
+              className={`text-xl text-gray-800 hover:text-black transition-all duration-700 ease-in-out ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? '900ms' : '0ms' }}
+            >
+              Contact
+            </button>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   );
 }
