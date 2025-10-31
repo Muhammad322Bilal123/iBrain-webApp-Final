@@ -31,23 +31,78 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-4 inset-x-0 z-50">
-        <nav className="max-w-fit mx-auto">
-          <div className="bg-white/80 backdrop-blur-xl shadow-all-sides-shadow rounded-full transition-transform duration-300 hover:scale-105">
-            <div className="flex items-center justify-center px-5 py-3">
-              <span 
-                className="text-2xl font-bold text-gray-900 cursor-pointer"
-                style={{ fontFamily: 'Orbitron, sans-serif' }}
-                onClick={() => scrollToSection('home')}
-              >
-                iBrain
-              </span>
-              <div className="h-6 w-px bg-gray-300 mx-4"></div>
+      <header className="fixed top-4 inset-x-0 z-50 px-4">
+        <nav className="max-w-7xl mx-auto">
+          {/* Mobile Card - Only visible on small screens */}
+          <div className="md:hidden max-w-fit mx-auto">
+            <div className="bg-white/80 backdrop-blur-xl shadow-all-sides-shadow rounded-full transition-transform duration-300 hover:scale-105">
+              <div className="flex items-center justify-center px-5 py-3">
+                <span 
+                  className="text-2xl font-bold text-gray-900 cursor-pointer"
+                  style={{ fontFamily: 'Orbitron, sans-serif' }}
+                  onClick={() => scrollToSection('home')}
+                >
+                  iBrain
+                </span>
+                <div className="h-6 w-px bg-gray-300 mx-4"></div>
+                <button
+                  className="text-gray-900 flex items-center justify-center"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                >
+                  {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon />}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout - Only visible on medium screens and up */}
+          <div className="hidden md:flex items-center justify-between bg-white/80 backdrop-blur-xl shadow-all-sides-shadow rounded-full px-8 py-4">
+            {/* Left side - iBrain logo */}
+            <span 
+              className="text-2xl font-bold text-gray-900 cursor-pointer"
+              style={{ fontFamily: 'Orbitron, sans-serif' }}
+              onClick={() => scrollToSection('home')}
+            >
+              iBrain
+            </span>
+
+            {/* Right side - Navigation links */}
+            <div className="flex items-center space-x-8">
               <button
-                className="text-gray-900 flex items-center justify-center"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={() => scrollToSection('home')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon />}
+                Home
+              </button>
+              <button
+                onClick={() => scrollToSection('courses')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              >
+                Courses
+              </button>
+              <button
+                onClick={() => scrollToSection('impact')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('features')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              >
+                Features
+              </button>
+              <button
+                onClick={() => scrollToSection('pricing')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              >
+                Pricing
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              >
+                Contact
               </button>
             </div>
           </div>
